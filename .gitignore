@@ -1,0 +1,4 @@
+.env
+data/token.json
+data/credentials.json
+data/*.db
