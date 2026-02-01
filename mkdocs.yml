@@ -1,0 +1,62 @@
+site_name: Gmail Agent Documentation
+site_description: User guide for the Gmail Agent - an AI-powered email and calendar assistant
+site_author: Pierre Paredes
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: blue
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: blue
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+  icon:
+    repo: fontawesome/brands/github
+
+plugins:
+  - search
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - tables
+  - attr_list
+  - md_in_html
+
+nav:
+  - Home: index.md
+  - Getting Started:
+      - Installation: getting-started/installation.md
+      - Google Setup: getting-started/google-setup.md
+      - HuggingFace Setup: getting-started/huggingface-setup.md
+      - First Run: getting-started/first-run.md
+  - Features:
+      - Inbox: features/inbox.md
+      - Drafts: features/drafts.md
+      - Calendar: features/calendar.md
+      - Settings: features/settings.md
+  - Configuration:
+      - Reference: configuration/reference.md
+  - Troubleshooting:
+      - FAQ: troubleshooting/faq.md

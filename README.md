@@ -2,6 +2,8 @@
 
 An AI-powered email and calendar assistant that helps you manage your Gmail inbox and Google Calendar. Built with Streamlit, LangChain, and HuggingFace LLMs.
 
+![inbox](docs/assets/images/inbox.png) 
+
 ## Features
 
 - **Smart Email Classification** - Automatically categorizes emails as needing reply, FYI only, meeting requests, or action items
@@ -14,31 +16,33 @@ An AI-powered email and calendar assistant that helps you manage your Gmail inbo
 
 ```mermaid
 flowchart TD
-    subgraph UI["Streamlit UI"]
-        A[Inbox View]
-        B[Draft Review]
-        C[Calendar View]
-        D[Settings]
+    classDef ui fill:#3b82f6,stroke:#2563eb,color:#ffffff
+    classDef agent fill:#7c3aed,stroke:#6d28d9,color:#ffffff
+    classDef api fill:#10b981,stroke:#059669,color:#ffffff
+    classDef db fill:#dc2626,stroke:#b91c1c,color:#ffffff
+    classDef text fill:#ffffff,stroke:#4b5563,color:#1f2937
+
+    UI["Streamlit UI"] --> Agent["LangChain Agent"]
+    
+    subgraph UI
+        A[Inbox view<br/>Draft review<br/>Calendar view<br/>Settings]
     end
 
-    subgraph Agent["LangChain Agent"]
-        E[Classifier]
-        F[Drafter]
-        G[Scheduler]
-        H[Approval]
+    subgraph Agent
+        B[Email classification<br/>Email drafting<br/>Calendar scheduling]
     end
 
-    subgraph Services["External APIs"]
-        I[Gmail API]
-        J[Calendar API]
-        K[HuggingFace LLM]
-    end
-
-    L[(SQLite DB)]
-
-    UI --> Agent
-    Agent --> Services
-    Agent <--> L
+    Agent --> gmail["Gmail API"]
+    Agent --> calendar["Calendar API"]
+    Agent --> hf["HuggingFace LLM API"]
+    Agent <--> db[(SQLite DB)]
+    
+    class UI ui
+    class A text
+    class Agent agent
+    class B text
+    class gmail,calendar,hf api
+    class db db
 ```
 
 ## Prerequisites
@@ -127,11 +131,13 @@ The app will open in your browser at `http://localhost:8501`.
 gmail_agent/
 ├── app.py                 # Streamlit entry point
 ├── config.py              # Configuration and environment variables
+├── mkdocs.yml             # Documentation configuration
 ├── auth/                  # Google OAuth authentication
 ├── services/              # Gmail, Calendar, and LLM API wrappers
 ├── agent/                 # AI agents (classifier, drafter, scheduler)
 ├── db/                    # SQLAlchemy models and database operations
 ├── ui/                    # Streamlit UI components
+├── docs/                  # User documentation (MkDocs)
 └── tests/                 # Test suite
 ```
 
@@ -155,6 +161,34 @@ uv run ruff format .
 # Type checking
 uv run pyright
 ```
+
+## Documentation
+
+Full documentation is available in the `docs/` folder, built with MkDocs and the Material theme.
+
+### Viewing Documentation Locally
+
+```bash
+# Serve docs with live reload
+uv run mkdocs serve
+```
+
+Open http://127.0.0.1:8000 in your browser.
+
+### Building Static Site
+
+```bash
+uv run mkdocs build
+```
+
+The static site will be generated in the `site/` folder.
+
+### Documentation Contents
+
+- **Getting Started** - Installation, Google Cloud setup, HuggingFace setup, first run
+- **Features** - Inbox, Drafts, Calendar, Settings guides
+- **Configuration** - Environment variables and settings reference
+- **Troubleshooting** - FAQ and common issues
 
 ## Security Notes
 
