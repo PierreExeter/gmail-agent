@@ -12,23 +12,33 @@ An AI-powered email and calendar assistant that helps you manage your Gmail inbo
 
 ## Architecture
 
-```
-┌─────────────────────────────────────────────────────────┐
-│                    Streamlit UI                         │
-│  (Inbox view, Draft review, Calendar, Settings)         │
-└─────────────────────┬───────────────────────────────────┘
-                      │
-┌─────────────────────▼───────────────────────────────────┐
-│                  LangChain Agent                        │
-│  (Orchestrates classification, drafting, scheduling)    │
-└─────────────────────┬───────────────────────────────────┘
-                      │
-        ┌─────────────┼─────────────┐
-        ▼             ▼             ▼
-┌───────────┐  ┌───────────┐  ┌───────────┐
-│ Gmail API │  │ Calendar  │  │ HuggingFace│
-│           │  │ API       │  │ LLM API    │
-└───────────┘  └───────────┘  └───────────┘
+```mermaid
+flowchart TD
+    subgraph UI["Streamlit UI"]
+        A[Inbox View]
+        B[Draft Review]
+        C[Calendar View]
+        D[Settings]
+    end
+
+    subgraph Agent["LangChain Agent"]
+        E[Classifier]
+        F[Drafter]
+        G[Scheduler]
+        H[Approval]
+    end
+
+    subgraph Services["External APIs"]
+        I[Gmail API]
+        J[Calendar API]
+        K[HuggingFace LLM]
+    end
+
+    L[(SQLite DB)]
+
+    UI --> Agent
+    Agent --> Services
+    Agent <--> L
 ```
 
 ## Prerequisites
@@ -42,7 +52,7 @@ An AI-powered email and calendar assistant that helps you manage your Gmail inbo
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/gmail-agent.git
+   git clone https://github.com/PierreExeter/gmail-agent.git
    cd gmail-agent
    ```
 
