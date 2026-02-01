@@ -18,7 +18,7 @@ Configure Gmail Agent by setting these variables in your `.env` file.
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `LLM_MODEL_ID` | HuggingFace model for AI tasks | `mistralai/Mistral-7B-Instruct-v0.2` |
+| `LLM_MODEL_ID` | HuggingFace model for AI tasks | `deepseek-ai/DeepSeek-R1-Distill-Qwen-7B` |
 | `CONFIDENCE_THRESHOLD` | Minimum confidence for auto-approval (0.0-1.0) | `0.7` |
 
 ## Example .env File
@@ -32,7 +32,7 @@ GOOGLE_CLIENT_ID=123456789-abcdefg.apps.googleusercontent.com
 GOOGLE_CLIENT_SECRET=GOCSPX-your_client_secret
 
 # LLM Configuration (optional)
-LLM_MODEL_ID=mistralai/Mistral-7B-Instruct-v0.2
+LLM_MODEL_ID=deepseek-ai/DeepSeek-R1-Distill-Qwen-7B
 
 # Agent Configuration (optional)
 CONFIDENCE_THRESHOLD=0.7
@@ -155,7 +155,7 @@ Compatible models for the Inference API:
 
 | Model ID | Parameters | Notes |
 |----------|------------|-------|
-| `mistralai/Mistral-7B-Instruct-v0.2` | 7B | Default, well-balanced |
+| `deepseek-ai/DeepSeek-R1-Distill-Qwen-7B` | 7B | Default, well-balanced |
 | `meta-llama/Llama-2-7b-chat-hf` | 7B | Requires license acceptance |
 | `HuggingFaceH4/zephyr-7b-beta` | 7B | Good for helpful responses |
 

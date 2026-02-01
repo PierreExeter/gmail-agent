@@ -63,9 +63,7 @@ class ReplyDrafter:
                 repo_id=self.model_id,
                 huggingfacehub_api_token=self.api_key,
                 max_new_tokens=512,
-                temperature=0.7,
-                task="text-generation",
-                provider="hf-inference",
+                temperature=0.7
             )
         return self._llm
 

@@ -51,7 +51,7 @@ GOOGLE_CLIENT_ID=your_client_id.apps.googleusercontent.com
 GOOGLE_CLIENT_SECRET=your_client_secret
 
 # Optional (with defaults shown)
-LLM_MODEL_ID=mistralai/Mistral-7B-Instruct-v0.2
+LLM_MODEL_ID=deepseek-ai/DeepSeek-R1-Distill-Qwen-7B
 CONFIDENCE_THRESHOLD=0.7
 ```
 
