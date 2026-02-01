@@ -96,6 +96,8 @@ class MeetingScheduler:
                 huggingfacehub_api_token=self.api_key,
                 max_new_tokens=256,
                 temperature=0.1,
+                task="text-generation",
+                provider="hf-inference",
             )
         return self._llm
 

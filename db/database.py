@@ -88,6 +88,7 @@ class Database:
             db_email.updated_at = datetime.utcnow()
 
             session.flush()
+            session.expunge(db_email)
             return db_email
 
     def get_email(self, gmail_id: str) -> Email | None:
@@ -129,6 +130,7 @@ class Database:
             )
             session.add(classification)
             session.flush()
+            session.expunge(classification)
             return classification
 
     def get_latest_classification(self, email_id: int) -> Classification | None:
@@ -175,6 +177,7 @@ class Database:
             )
             session.add(draft)
             session.flush()
+            session.expunge(draft)
             return draft
 
     def get_draft(self, draft_id: int) -> Draft | None:
@@ -252,6 +255,7 @@ class Database:
             )
             session.add(feedback)
             session.flush()
+            session.expunge(feedback)
             return feedback
 
     def save_calendar_action(
@@ -278,6 +282,7 @@ class Database:
             )
             session.add(action)
             session.flush()
+            session.expunge(action)
             return action
 
     def get_pending_calendar_actions(self) -> list[CalendarAction]:
@@ -321,6 +326,7 @@ class Database:
             )
             session.add(sender)
             session.flush()
+            session.expunge(sender)
             return sender
 
     def get_known_senders(self) -> list[KnownSender]:
