@@ -1,0 +1,53 @@
+[project]
+name = "gmail-agent"
+version = "0.1.0"
+description = "Email + Calendar Admin AI Agent using LangChain and Streamlit"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "streamlit>=1.30.0",
+    "langchain>=0.3.0",
+    "langchain-huggingface>=0.1.0",
+    "google-api-python-client>=2.100.0",
+    "google-auth-oauthlib>=1.2.0",
+    "sqlalchemy>=2.0.0",
+    "python-dotenv>=1.0.0",
+    "huggingface-hub>=0.20.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-anyio>=0.0.0",
+    "ruff>=0.4.0",
+    "pyright>=1.1.0",
+]
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+ignore = ["E501"]
+
+[tool.pyright]
+pythonVersion = "3.11"
+typeCheckingMode = "basic"
+reportAttributeAccessIssue = false
+reportCallIssue = false
+reportReturnType = false
+reportGeneralTypeIssues = false
+reportArgumentType = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+
+[dependency-groups]
+dev = [
+    "pyright>=1.1.408",
+    "pytest>=9.0.2",
+    "pytest-anyio>=0.0.0",
+    "ruff>=0.14.14",
+]
