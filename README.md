@@ -122,7 +122,7 @@ The app will open in your browser at `http://localhost:8501`.
 | `HUGGINGFACE_API_KEY` | HuggingFace API token | Required |
 | `GOOGLE_CLIENT_ID` | Google OAuth client ID | Required |
 | `GOOGLE_CLIENT_SECRET` | Google OAuth client secret | Required |
-| `LLM_MODEL_ID` | HuggingFace model for inference | `deepseek-ai/DeepSeek-R1-Distill-Qwen-7B` |
+| `LLM_MODEL_ID` | HuggingFace model for inference | `meta-llama/Llama-3.1-8B-Instruct` |
 | `CONFIDENCE_THRESHOLD` | Minimum confidence for auto-approval | `0.7` |
 
 ## Project Structure

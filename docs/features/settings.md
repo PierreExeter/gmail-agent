@@ -40,7 +40,7 @@ Select which HuggingFace model to use for classification and drafting:
 
 | Model | Description |
 |-------|-------------|
-| `deepseek-ai/DeepSeek-R1-Distill-Qwen-7B` | Default. Balanced speed and quality |
+| `meta-llama/Llama-3.1-8B-Instruct` | Default. Balanced speed and quality |
 | `meta-llama/Llama-2-7b-chat-hf` | Alternative instruction-tuned model |
 | `HuggingFaceH4/zephyr-7b-beta` | Optimized for helpful responses |
 

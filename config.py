@@ -26,7 +26,7 @@ CREDENTIALS_PATH = DATA_DIR / "credentials.json"
 
 # HuggingFace settings
 HUGGINGFACE_API_KEY = os.getenv("HUGGINGFACE_API_KEY", "")
-LLM_MODEL_ID = os.getenv("LLM_MODEL_ID", "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B")
+LLM_MODEL_ID = os.getenv("LLM_MODEL_ID", "meta-llama/Llama-3.1-8B-Instruct")
 
 # Agent settings
 CONFIDENCE_THRESHOLD = float(os.getenv("CONFIDENCE_THRESHOLD", "0.7"))

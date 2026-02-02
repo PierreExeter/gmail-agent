@@ -3,7 +3,7 @@
 import logging
 
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_huggingface import HuggingFaceEndpoint
+from langchain_huggingface import ChatHuggingFace, HuggingFaceEndpoint
 
 import config
 from services.gmail_service import EmailMessage
@@ -52,19 +52,20 @@ class ReplyDrafter:
         """
         self.model_id = model_id or config.LLM_MODEL_ID
         self.api_key = api_key or config.HUGGINGFACE_API_KEY
-        self._llm: HuggingFaceEndpoint | None = None
+        self._llm: ChatHuggingFace | None = None
         self._chain = None
 
     @property
-    def llm(self) -> HuggingFaceEndpoint:
+    def llm(self) -> ChatHuggingFace:
         """Get or create LLM instance."""
         if self._llm is None:
-            self._llm = HuggingFaceEndpoint(
+            endpoint = HuggingFaceEndpoint(
                 repo_id=self.model_id,
                 huggingfacehub_api_token=self.api_key,
                 max_new_tokens=512,
-                temperature=0.7
+                temperature=0.7,
             )
+            self._llm = ChatHuggingFace(llm=endpoint)
         return self._llm
 
     @property

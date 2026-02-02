@@ -43,14 +43,14 @@ HUGGINGFACE_API_KEY=hf_your_api_key_here
 Gmail Agent uses the HuggingFace Inference API to access LLMs. By default, it uses Mistral-7B-Instruct:
 
 ```bash
-LLM_MODEL_ID=deepseek-ai/DeepSeek-R1-Distill-Qwen-7B
+LLM_MODEL_ID=meta-llama/Llama-3.1-8B-Instruct
 ```
 
 ### Recommended Models
 
 | Model | Description |
 |-------|-------------|
-| `deepseek-ai/DeepSeek-R1-Distill-Qwen-7B` | Default. Good balance of speed and quality |
+| `meta-llama/Llama-3.1-8B-Instruct` | Default. Good balance of speed and quality |
 | `meta-llama/Llama-2-7b-chat-hf` | Meta's Llama 2 chat model |
 | `HuggingFaceH4/zephyr-7b-beta` | Fine-tuned for helpful responses |
 
@@ -76,7 +76,7 @@ curl -X POST \
   -H "Authorization: Bearer hf_your_api_key" \
   -H "Content-Type: application/json" \
   -d '{"inputs": "Hello, how are you?"}' \
-  https://api-inference.huggingface.co/models/deepseek-ai/DeepSeek-R1-Distill-Qwen-7B
+  https://api-inference.huggingface.co/models/meta-llama/Llama-3.1-8B-Instruct
 ```
 
 A successful response will return generated text.

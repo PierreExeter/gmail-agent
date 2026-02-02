@@ -54,7 +54,7 @@ def _render_api_settings() -> None:
     st.subheader("LLM Model")
 
     models = [
-        "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+        "meta-llama/Llama-3.1-8B-Instruct",
         "meta-llama/Llama-2-7b-chat-hf",
         "meta-llama/Llama-2-13b-chat-hf",
         "tiiuae/falcon-7b-instruct",

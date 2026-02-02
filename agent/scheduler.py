@@ -8,7 +8,7 @@ from zoneinfo import ZoneInfo
 
 from langchain_core.output_parsers import JsonOutputParser
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_huggingface import HuggingFaceEndpoint
+from langchain_huggingface import ChatHuggingFace, HuggingFaceEndpoint
 
 import config
 from services.calendar_service import CalendarService, MeetingDetails, TimeSlot
@@ -84,19 +84,20 @@ class MeetingScheduler:
         self.api_key = api_key or config.HUGGINGFACE_API_KEY
         self.timezone = timezone
         self._calendar = calendar_service
-        self._llm: HuggingFaceEndpoint | None = None
+        self._llm: ChatHuggingFace | None = None
         self._extraction_chain = None
 
     @property
-    def llm(self) -> HuggingFaceEndpoint:
+    def llm(self) -> ChatHuggingFace:
         """Get or create LLM instance."""
         if self._llm is None:
-            self._llm = HuggingFaceEndpoint(
+            endpoint = HuggingFaceEndpoint(
                 repo_id=self.model_id,
                 huggingfacehub_api_token=self.api_key,
                 max_new_tokens=256,
-                temperature=0.1
+                temperature=0.1,
             )
+            self._llm = ChatHuggingFace(llm=endpoint)
         return self._llm
 
     @property
