@@ -2,7 +2,7 @@
 
 An AI-powered email and calendar assistant that helps you manage your Gmail inbox and Google Calendar. Built with Streamlit, LangChain, and HuggingFace LLMs.
 
-![inbox](docs/assets/images/inbox.png) 
+![inbox](docs/assets/images/demo-gmail-agent.gif) 
 
 ## Features
 

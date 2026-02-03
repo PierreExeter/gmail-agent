@@ -13,6 +13,13 @@ from services.calendar_service import CalendarEvent, CalendarService, MeetingDet
 logger = logging.getLogger(__name__)
 
 
+def _clear_calendar_events_cache() -> None:
+    """Clear all calendar events cache entries."""
+    keys_to_remove = [k for k in st.session_state if k.startswith("calendar_events_")]
+    for key in keys_to_remove:
+        st.session_state.pop(key, None)
+
+
 def render_calendar() -> None:
     """Render the calendar view."""
     st.header("Calendar")
@@ -43,7 +50,7 @@ def _render_upcoming_events() -> None:
         )
     with col3:
         if st.button("Refresh", type="primary"):
-            st.session_state.pop("calendar_events", None)
+            _clear_calendar_events_cache()
             st.rerun()
 
     events = _fetch_events(days_ahead, timezone)
@@ -183,7 +190,7 @@ def _approve_calendar_action(action: CalendarAction) -> None:
                 db.approve_calendar_action(action.id, event.id)
                 st.success("Event created!")
                 st.session_state.pop("pending_calendar_actions", None)
-                st.session_state.pop("calendar_events", None)
+                _clear_calendar_events_cache()
             else:
                 st.error("Failed to create event")
                 return
@@ -285,7 +292,7 @@ def _create_event(
 
             if event:
                 st.success(f"Event created: {event.summary}")
-                st.session_state.pop("calendar_events", None)
+                _clear_calendar_events_cache()
             else:
                 st.error("Failed to create event")
         except Exception:
