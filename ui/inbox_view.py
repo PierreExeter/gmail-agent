@@ -270,6 +270,9 @@ def _schedule_meeting(email: EmailMessage) -> None:
                 email_id=db_email.id,
             )
 
+            # Invalidate pending calendar actions cache so new action shows up
+            st.session_state.pop("pending_calendar_actions", None)
+
             st.success("Meeting request processed! Check the Calendar > Pending Meetings tab to review and approve.")
         except Exception:
             logger.exception("Failed to process meeting request")
