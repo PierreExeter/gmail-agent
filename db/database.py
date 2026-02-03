@@ -7,7 +7,7 @@ from contextlib import contextmanager
 from datetime import datetime
 
 from sqlalchemy import create_engine
-from sqlalchemy.orm import Session, sessionmaker
+from sqlalchemy.orm import Session, joinedload, sessionmaker
 
 import config
 from db.models import Base, CalendarAction, Classification, Draft, Email, Feedback, KnownSender
@@ -32,7 +32,7 @@ def get_session_factory():
     """Get or create session factory."""
     global _SessionLocal
     if _SessionLocal is None:
-        _SessionLocal = sessionmaker(bind=get_engine())
+        _SessionLocal = sessionmaker(bind=get_engine(), expire_on_commit=False)
     return _SessionLocal
 
 
@@ -188,12 +188,16 @@ class Database:
     def get_pending_drafts(self) -> list[Draft]:
         """Get drafts awaiting approval."""
         with self._get_session() as session:
-            return (
+            drafts = (
                 session.query(Draft)
+                .options(joinedload(Draft.email))
                 .filter(Draft.status == "pending", Draft.is_approved.is_(False))
                 .order_by(Draft.created_at.desc())
                 .all()
             )
+            for draft in drafts:
+                session.expunge(draft)
+            return drafts
 
     def update_draft(self, draft_id: int, body: str) -> bool:
         """Update a draft's body."""

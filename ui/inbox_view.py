@@ -206,7 +206,7 @@ def _draft_reply(email: EmailMessage) -> None:
             drafter = ReplyDrafter()
             draft = drafter.draft_reply(email)
 
-            st.session_state[f"draft_{email.id}"] = draft
+            st.session_state[f"draft_content_{email.id}"] = draft
 
             db = Database()
             db_email = db.save_email(email)

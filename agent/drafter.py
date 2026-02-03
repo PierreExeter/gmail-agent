@@ -114,7 +114,7 @@ class ReplyDrafter:
                     "tone": tone,
                 }
             )
-            return self._clean_draft(result)
+            return self._clean_draft(result.content)
         except Exception:
             logger.exception("Drafting chain failed")
             return self._fallback_draft(email)
@@ -150,7 +150,7 @@ class ReplyDrafter:
             prompt = ChatPromptTemplate.from_template(template)
             chain = prompt | self.llm
             result = chain.invoke(base_vars)
-            return self._clean_draft(result)
+            return self._clean_draft(result.content)
         except Exception:
             logger.exception("Custom template drafting failed")
             return ""
@@ -180,7 +180,7 @@ Improved draft:"""
             prompt = ChatPromptTemplate.from_template(prompt_template)
             chain = prompt | self.llm
             result = chain.invoke({"draft": draft, "feedback": feedback})
-            return self._clean_draft(result)
+            return self._clean_draft(result.content)
         except Exception:
             logger.exception("Draft improvement failed")
             return draft
