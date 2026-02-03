@@ -1,5 +1,10 @@
 # Gmail Agent
 
+[![CI](https://github.com/PierreExeter/gmail-agent/actions/workflows/ci.yml/badge.svg)](https://github.com/PierreExeter/gmail-agent/actions/workflows/ci.yml)
+[![Docs](https://github.com/PierreExeter/gmail-agent/actions/workflows/docs.yml/badge.svg)](https://github.com/PierreExeter/gmail-agent/actions/workflows/docs.yml)
+[![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 An AI-powered email and calendar assistant that helps you manage your Gmail inbox and Google Calendar. Built with Streamlit, LangChain, and HuggingFace LLMs.
 
 ![inbox](docs/assets/images/demo-gmail-agent.gif) 
