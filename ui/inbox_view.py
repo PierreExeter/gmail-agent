@@ -8,6 +8,7 @@ import streamlit as st
 from agent.approval import ApprovalChecker
 from agent.classifier import ClassificationResult, EmailClassifier
 from agent.drafter import ReplyDrafter
+from agent.scheduler import MeetingScheduler
 from db.database import Database
 from services.gmail_service import EmailMessage, GmailService
 
@@ -144,10 +145,16 @@ def _render_email_details(
     with col2:
         if (
             classification
-            and classification.category in ["NEEDS_REPLY", "MEETING_REQUEST"]
+            and classification.category == "NEEDS_REPLY"
             and st.button("Draft Reply", key=f"draft_{email.id}")
         ):
             _draft_reply(email)
+        elif (
+            classification
+            and classification.category == "MEETING_REQUEST"
+            and st.button("Schedule Meeting", key=f"schedule_{email.id}")
+        ):
+            _schedule_meeting(email)
 
     with col3:
         if email.is_unread and st.button("Mark Read", key=f"read_{email.id}"):
@@ -218,6 +225,43 @@ def _draft_reply(email: EmailMessage) -> None:
         except Exception:
             logger.exception("Drafting failed")
             st.error("Failed to create draft")
+
+
+def _schedule_meeting(email: EmailMessage) -> None:
+    """Extract meeting details and create a pending calendar action."""
+    with st.spinner("Analyzing meeting request..."):
+        try:
+            scheduler = MeetingScheduler()
+            extraction = scheduler.extract_meeting_details(email)
+
+            if not extraction.has_meeting_request:
+                st.warning("No meeting request detected in this email.")
+                return
+
+            proposal = scheduler.create_scheduling_proposal(extraction, email)
+
+            start_time = None
+            end_time = None
+            if proposal.available_slots:
+                first_slot = proposal.available_slots[0]
+                start_time = first_slot.start
+                end_time = first_slot.end
+
+            db = Database()
+            db_email = db.save_email(email)
+            db.save_calendar_action(
+                action_type="create_meeting",
+                summary=proposal.meeting.summary,
+                start_time=start_time,
+                end_time=end_time,
+                attendees=proposal.meeting.attendees,
+                email_id=db_email.id,
+            )
+
+            st.success("Meeting request processed! Check the Calendar > Pending Meetings tab to review and approve.")
+        except Exception:
+            logger.exception("Failed to process meeting request")
+            st.error("Failed to process meeting request")
 
 
 def _mark_as_read(email: EmailMessage) -> None:
