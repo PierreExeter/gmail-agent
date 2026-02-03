@@ -1,6 +1,7 @@
 """Inbox view component for Streamlit UI."""
 
 import logging
+import re
 from datetime import datetime
 
 import streamlit as st
@@ -227,6 +228,14 @@ def _draft_reply(email: EmailMessage) -> None:
             st.error("Failed to create draft")
 
 
+def _is_valid_email(email: str) -> bool:
+    """Check if a string is a valid email address."""
+    if not email or not isinstance(email, str):
+        return False
+    pattern = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+    return bool(re.match(pattern, email.strip()))
+
+
 def _schedule_meeting(email: EmailMessage) -> None:
     """Extract meeting details and create a pending calendar action."""
     with st.spinner("Analyzing meeting request..."):
@@ -247,6 +256,9 @@ def _schedule_meeting(email: EmailMessage) -> None:
                 start_time = first_slot.start
                 end_time = first_slot.end
 
+            # Filter out invalid email addresses from attendees
+            valid_attendees = [a for a in (proposal.meeting.attendees or []) if _is_valid_email(a)]
+
             db = Database()
             db_email = db.save_email(email)
             db.save_calendar_action(
@@ -254,7 +266,7 @@ def _schedule_meeting(email: EmailMessage) -> None:
                 summary=proposal.meeting.summary,
                 start_time=start_time,
                 end_time=end_time,
-                attendees=proposal.meeting.attendees,
+                attendees=valid_attendees,
                 email_id=db_email.id,
             )
 
