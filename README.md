@@ -164,31 +164,7 @@ uv run pyright
 
 ## Documentation
 
-Full documentation is available in the `docs/` folder, built with MkDocs and the Material theme.
-
-### Viewing Documentation Locally
-
-```bash
-# Serve docs with live reload
-uv run mkdocs serve
-```
-
-Open http://127.0.0.1:8000 in your browser.
-
-### Building Static Site
-
-```bash
-uv run mkdocs build
-```
-
-The static site will be generated in the `site/` folder.
-
-### Documentation Contents
-
-- **Getting Started** - Installation, Google Cloud setup, HuggingFace setup, first run
-- **Features** - Inbox, Drafts, Calendar, Settings guides
-- **Configuration** - Environment variables and settings reference
-- **Troubleshooting** - FAQ and common issues
+Full documentation is available at [pierreexeter.github.io/gmail-agent](https://pierreexeter.github.io/gmail-agent/).
 
 ## Security Notes
 

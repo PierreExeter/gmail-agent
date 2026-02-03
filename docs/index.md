@@ -2,6 +2,8 @@
 
 Welcome to the Gmail Agent documentation. Gmail Agent is an AI-powered email and calendar assistant that helps you manage your Gmail inbox and Google Calendar.
 
+![Inbox View](../assets/images/demo-gmail-agent.gif)
+
 ## Overview
 
 Gmail Agent uses LangChain and HuggingFace LLMs to intelligently process your emails, generate reply drafts, and manage calendar events with human oversight at every step.
