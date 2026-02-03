@@ -315,6 +315,15 @@ class Database:
                 return True
             return False
 
+    def reject_calendar_action(self, action_id: int) -> bool:
+        """Reject a calendar action."""
+        with self._get_session() as session:
+            action = session.query(CalendarAction).filter(CalendarAction.id == action_id).first()
+            if action:
+                action.status = "rejected"
+                return True
+            return False
+
     def is_known_sender(self, email: str) -> bool:
         """Check if an email is from a known sender."""
         with self._get_session() as session:

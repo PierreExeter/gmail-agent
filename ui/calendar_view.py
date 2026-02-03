@@ -184,27 +184,30 @@ def _approve_calendar_action(action: CalendarAction) -> None:
                 st.success("Event created!")
                 st.session_state.pop("pending_calendar_actions", None)
                 st.session_state.pop("calendar_events", None)
-                st.rerun()
             else:
                 st.error("Failed to create event")
+                return
         except Exception:
             logger.exception("Failed to create event")
             st.error("Failed to create event")
+            return
+
+    st.rerun()
 
 
 def _reject_calendar_action(action_id: int) -> None:
     """Reject a calendar action."""
     try:
         db = Database()
-        action = db._get_session().__enter__().query(CalendarAction).filter(CalendarAction.id == action_id).first()
-        if action:
-            action.status = "rejected"
+        db.reject_calendar_action(action_id)
         st.success("Meeting request rejected")
         st.session_state.pop("pending_calendar_actions", None)
-        st.rerun()
     except Exception:
         logger.exception("Failed to reject action")
         st.error("Failed to reject")
+        return
+
+    st.rerun()
 
 
 def _render_create_event() -> None:
