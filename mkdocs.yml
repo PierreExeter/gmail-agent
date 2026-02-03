@@ -1,6 +1,9 @@
 site_name: Gmail Agent Documentation
 site_description: User guide for the Gmail Agent - an AI-powered email and calendar assistant
 site_author: Pierre Paredes
+site_url: https://pierreexeter.github.io/gmail-agent/
+repo_url: https://github.com/PierreExeter/gmail-agent
+repo_name: PierreExeter/gmail-agent
 
 theme:
   name: material
