@@ -32,17 +32,15 @@ def render_inbox() -> None:
     """Render the inbox view."""
     st.header("Inbox")
 
-    col1, col2, col3 = st.columns([2, 1, 1])
+    col1, col2 = st.columns([1, 1])
     with col1:
-        unread_only = st.checkbox("Show unread only", value=True)
-    with col2:
         max_emails = st.selectbox("Show", [10, 20, 50], index=1)
-    with col3:
+    with col2:
         if st.button("Refresh", type="primary"):
             st.session_state.pop("emails", None)
             st.rerun()
 
-    emails = _fetch_emails(unread_only, max_emails)
+    emails = _fetch_emails(max_emails)
 
     if not emails:
         st.info("No emails found. Check your authentication or filters.")
@@ -52,15 +50,15 @@ def render_inbox() -> None:
         _render_email_card(email)
 
 
-def _fetch_emails(unread_only: bool, max_results: int) -> list[EmailMessage]:
+def _fetch_emails(max_results: int) -> list[EmailMessage]:
     """Fetch emails from Gmail."""
-    cache_key = f"emails_{unread_only}_{max_results}"
+    cache_key = f"emails_{max_results}"
     if cache_key not in st.session_state:
         try:
             gmail = GmailService()
             st.session_state[cache_key] = gmail.fetch_emails(
                 max_results=max_results,
-                unread_only=unread_only,
+                unread_only=False,
             )
         except Exception:
             logger.exception("Failed to fetch emails")
