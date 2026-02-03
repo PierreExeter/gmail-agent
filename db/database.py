@@ -323,6 +323,11 @@ class Database:
     def add_known_sender(self, email: str, name: str = "", trust_level: str = "normal") -> KnownSender:
         """Add a known sender."""
         with self._get_session() as session:
+            # Check if sender already exists
+            existing = session.query(KnownSender).filter(KnownSender.email == email.lower()).first()
+            if existing:
+                return existing
+
             sender = KnownSender(
                 email=email.lower(),
                 name=name,
