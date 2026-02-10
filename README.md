@@ -171,6 +171,17 @@ uv run pyright
 
 Full documentation is available at [pierreexeter.github.io/gmail-agent](https://pierreexeter.github.io/gmail-agent/).
 
+```bash
+# Local preview (live-reload dev server)
+uv run mkdocs serve
+
+# Build static site locally
+uv run mkdocs build
+
+# Deploy to GitHub Pages
+uv run mkdocs gh-deploy --force
+```
+
 ## Security Notes
 
 - Never commit `.env`, `data/token.json`, or `data/credentials.json`
