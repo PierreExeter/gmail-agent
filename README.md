@@ -27,24 +27,24 @@ flowchart TD
     classDef db fill:#dc2626,stroke:#b91c1c,color:#ffffff
     classDef text fill:#ffffff,stroke:#4b5563,color:#1f2937
 
-    UI["Streamlit UI"] --> Agent["LangChain Agent"]
+    UI["Streamlit UI"] --> AGENT["LangChain Agent"]
     
-    subgraph UI
+    subgraph UI["Streamlit UI"]
         A[Inbox view<br/>Draft review<br/>Calendar view<br/>Settings]
     end
 
-    subgraph Agent
+    subgraph AGENT["LangChain Agent"]
         B[Email classification<br/>Email drafting<br/>Calendar scheduling]
     end
 
-    Agent --> gmail["Gmail API"]
-    Agent --> calendar["Calendar API"]
-    Agent --> hf["HuggingFace LLM API"]
-    Agent <--> db[(SQLite DB)]
+    AGENT --> gmail["Gmail API"]
+    AGENT --> calendar["Calendar API"]
+    AGENT --> hf["HuggingFace LLM API"]
+    AGENT <--> db[(SQLite DB)]
     
     class UI ui
     class A text
-    class Agent agent
+    class AGENT agent
     class B text
     class gmail,calendar,hf api
     class db db
